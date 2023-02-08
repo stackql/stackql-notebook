@@ -15,6 +15,7 @@ COPY config/ /config/
 # copy assets directory
 RUN mkdir -p /assets
 COPY assets/ /assets/
+RUN chown -R jovyan:users /assets
 # copy entrypoint script
 RUN mkdir -p /scripts
 COPY scripts/ /scripts/
