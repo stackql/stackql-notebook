@@ -1,5 +1,5 @@
 <a href="https://stackql.io/" target="_blank">
-<img src="images/stackql-logo-bold.png" alt="StackQL" width="33%" height="33%">
+<img src="assets/stackql-logo-bold.png" alt="StackQL" width="33%" height="33%">
 </a>
 <br />
 
