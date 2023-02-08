@@ -13,9 +13,9 @@ RUN chmod 644 /jupyter/.keys && \
 RUN mkdir -p /config
 COPY config/ /config/
 # copy assets directory
-RUN mkdir -p /assets
-COPY assets/ /assets/
-RUN chown -R jovyan:users /assets
+RUN mkdir -p /jupyter/assets
+COPY assets/ /jupyter/assets/
+RUN chown -R jovyan:users /jupyter/assets
 # copy entrypoint script
 RUN mkdir -p /scripts
 COPY scripts/ /scripts/
