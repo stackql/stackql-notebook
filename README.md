@@ -14,23 +14,23 @@ Template repository to create a StackQL analytics notebook Docker container imag
 ## Usage
 
 <!--ts-->
-   * [Prerequisites](#prerequisites)
-   * [Configure providers](#configure-providers)
-   * [Set up auth variables and keys](#set-up-auth-variables-and-keys)
-   * [Build image](#build-image)
-   * [Run notebook](#run-notebook)
-   * [Use the notebook](#use-the-notebook)
-   * [Stop and remove container](#stop-and-remove-container)
-   * [Remove the image (optional)](#remove-the-image-optional)
+   * [1. Prerequisites](#1-prerequisites)
+   * [2. Configure providers](#2-configure-providers)
+   * [3. Set up auth variables and keys](#3-set-up-auth-variables-and-keys)
+   * [4. Build image](#4-build-image)
+   * [5. Run notebook](#5-run-notebook)
+   * [6. Use the notebook](#6-use-the-notebook)
+   * [7. Stop and remove container](#7-stop-and-remove-container)
+   * [8. Remove the image (optional)](#8-remove-the-image-optional)
 <!--te-->  
 
 <br />
 
-### Prerequisites
+### 1. Prerequisites
 
 - Docker
 
-### Configure providers
+### 2. Configure providers
 
 Configure the providers you want to query in your notebook using the `config/providers` file, edit this file adding each provider on a new line, for example:  
 
@@ -58,7 +58,7 @@ Modify the `config/providerAuth.json` file to include the authentication objects
 
 For more information on how to configure providers, see the instructions for given provider at [registry.stackql.io](https://registry.stackql.io/).  
 
-### Set up auth variables and keys
+### 3. Set up auth variables and keys
 
 You will need to setup credentials in enviroment variables for the providers required by... 
 - adding the appropriate service account key(s) to the `keys/` directory 
@@ -90,7 +90,7 @@ $Env:GITHUB_CREDS = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF
 </p>
 </details>
 
-### Build image
+### 4. Build image
 
 Build the image using the following command:  
 
@@ -98,7 +98,7 @@ Build the image using the following command:
 docker build --no-cache -t stackql-notebook .
 ```
 
-### Run notebook
+### 5. Run notebook
 
 To run the notebook locally in detatched mode, execute the following command:  
 
@@ -121,7 +121,7 @@ stackql-notebook `
 /bin/sh -c "/scripts/entrypoint.sh"
 ```
 
-### Use the notebook
+### 6. Use the notebook
 
 Once the container is running, you can access the notebook by opening a browser to http://localhost:8888.  
 
@@ -131,7 +131,7 @@ Once the container is running, you can access the notebook by opening a browser 
 
 Open the `stackql.ipynb` notebook and run the cells.  In your own repositiory, you can add your own notebooks and use StackQL to query the providers you configured.
 
-### Stop and remove container
+### 7. Stop and remove container
 
 To stop and remove the container when you're finished, run...   
 
@@ -140,7 +140,7 @@ docker stop $(docker ps -l -q --filter status=running --filter ancestor=stackql-
 docker rm $(docker ps --filter status=exited --filter ancestor=stackql-notebook -q)
 ```
 
-### Remove the image (optional)
+### 8. Remove the image (optional)
 
 To remove the image locally run:
 ```bash 
