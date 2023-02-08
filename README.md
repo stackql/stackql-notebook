@@ -125,7 +125,7 @@ stackql-notebook `
 
 Once the container is running, you can access the notebook by opening a browser to http://localhost:8888. 
 
-> __*NOTE:*__ it may take a minute or so for the bootstrap scripts to run once the container is started, so if you get a __`connection refused`__ error, wait a minute or so and try again.
+> __NOTE:__ it may take a minute or so for the bootstrap scripts to run once the container is started, so if you get a __`connection refused`__ error, wait a minute or so and try again.
 
 <p align="center">
   <img src="images/stackql-jupyter.png" alt="StackQL" width="70%" height="70%">
