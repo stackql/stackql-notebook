@@ -39,30 +39,15 @@ aws
 azure
 github
 ```
-
-Modify the `config/providerAuth.json` file to include the authentication objects for the providers you declared in your `config/providers` file,  for example:  
-
-```json
-{
-    "aws": { 
-        "type": "aws_signing_v4",
-        "credentialsenvvar": "AWS_SECRET_ACCESS_KEY", 
-        "keyIDenvvar": "AWS_ACCESS_KEY_ID" 
-    },
-    "github": { 
-        "type": "basic", 
-        "credentialsenvvar": "GITHUB_CREDS"
-    }
-}
-```
-
-For more information on how to configure providers, see the instructions for given provider at [registry.stackql.io](https://registry.stackql.io/).  
-
 ### 3. Set up auth variables and keys
 
 You will need to setup credentials in enviroment variables for the providers required by... 
 - adding the appropriate service account key(s) to the `keys/` directory 
-- populating the necessary environment variables on your host machine (passed to the docker container at runtime), examples are shown here:
+- populating the necessary environment variables on your host machine (passed to the docker container at runtime).  
+
+> For more information on the environment variables required for each provider, see the authentication instructions for the given provider at [registry.stackql.io](https://registry.stackql.io/)  
+
+Examples are shown here:  
 
 <details>
 <summary>Setting Environment Variables (bash)</summary>
@@ -71,7 +56,8 @@ You will need to setup credentials in enviroment variables for the providers req
 ```bash
 export AWS_ACCESS_KEY_ID=YOURACCESSKEYID
 export AWS_SECRET_ACCESS_KEY=YOURSECRETACCESSKEY
-export GITHUB_CREDS=$(echo -n 'githubusername:your_github_personal_access_token' | base64)
+export STACKQL_GITHUB_USERNAME=githubusername
+export STACKQL_GITHUB_PASSWORD=your_github_personal_access_token
 ```
 
 </p>
@@ -84,7 +70,8 @@ export GITHUB_CREDS=$(echo -n 'githubusername:your_github_personal_access_token'
 ```powershell
 $Env:AWS_ACCESS_KEY_ID = "YOURACCESSKEYID"
 $Env:AWS_SECRET_ACCESS_KEY = "YOURSECRETACCESSKEY"
-$Env:GITHUB_CREDS = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("githubusername:your_github_personal_access_token"))
+$Env:STACKQL_GITHUB_USERNAME = "githubusername"
+$Env:STACKQL_GITHUB_PASSWORD = "your_github_personal_access_token"
 ```
 
 </p>
@@ -106,7 +93,8 @@ To run the notebook locally in detatched mode, execute the following command:
 docker run -d -p 8888:8888 \
 -e AWS_ACCESS_KEY_ID \
 -e AWS_SECRET_ACCESS_KEY \
--e GITHUB_CREDS \
+-e STACKQL_GITHUB_USERNAME \
+-e STACKQL_GITHUB_PASSWORD \
 stackql-notebook \
 /bin/sh -c "/scripts/entrypoint.sh"
 ```
@@ -116,10 +104,13 @@ or using PowerShell:
 docker run -p 8888:8888 `
 -e AWS_ACCESS_KEY_ID `
 -e AWS_SECRET_ACCESS_KEY `
--e GITHUB_CREDS `
+-e STACKQL_GITHUB_USERNAME `
+-e STACKQL_GITHUB_PASSWORD `
 stackql-notebook `
 /bin/sh -c "/scripts/entrypoint.sh"
 ```
+
+> the `entrypoint.sh` script starts the notebook using `stackql` in `exec` mode, to start the notebook in `stackql` server mode, use the `srv` argument with the`entrypoint.sh` as follows : `entrypoint.sh srv`.
 
 ### 6. Use the notebook
 
@@ -131,7 +122,7 @@ Once the container is running, you can access the notebook by opening a browser 
   <img src="images/stackql-jupyter.png" alt="StackQL" width="70%" height="70%">
 </p>
 
-Open the `stackql.ipynb` notebook and run the cells.  In your own repositiory, you can add your own notebooks and use StackQL to query the providers you configured.
+Open the `stackql.ipynb` notebook and run the cells.  In your own repositiory, you can add your own notebooks and use StackQL to query the providers you configured.  
 
 ### 7. Stop and remove container
 
